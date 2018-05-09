@@ -6,7 +6,7 @@
 /out-tsc
 
 #environment
-/src/environments/environment.ts
+environment.ts
 
 # dependencies
 /node_modules
