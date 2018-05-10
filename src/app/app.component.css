@@ -1,0 +1,13 @@
+.person-list {
+    max-height: 550px;
+    max-width: 400px;
+}
+
+.character-list {
+    max-height: 550px;
+    max-width: 400px;
+}
+
+.next-button { 
+    float: right;
+}

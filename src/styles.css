@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/css/bootstrap.css';
+
+.bordered {
+    border:1px solid #cecece;
+}
+
+.scrolling {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.page-padded {
+    padding-left: 20px;
+    padding-top: 20px;
+}
