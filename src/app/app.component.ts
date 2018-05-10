@@ -14,31 +14,49 @@ export class AppComponent implements OnInit{
   _peopleFull = new Array<Person>();
   _characterDict;
   _currentPage = 1;
+  _maxPages = 1;
+  _peoplePerPage = 25;
 
   constructor(protected _peopleService: PeopleService) {}
 
   ngOnInit() {
+    this.getMaxPages();
     this.getPeopleSmall();
   }
 
+  //Figures out the maximum number of people pages
+  //based on the total number of people and the max
+  //number of people per page
+  getMaxPages() {
+    this._peopleService.getTotalPeopleCount().then(count => {
+      this._maxPages = Math.ceil(count / this._peoplePerPage);
+    });
+  }
+
+  //Retrieves a small number of people. Populates the "People" list
   getPeopleSmall() {
     this._peopleService.getPeople(this._currentPage).then(successResult => {
       this._peopleSmall = successResult
     },
     failureResult => {
-      this.onFailure(failureResult);
+      this.onRequestFailure(failureResult);
     })
   }
 
-  onFailure(failureResult){
+  //Executes when some aspect of our API requests fails
+  onRequestFailure(failureResult){
     console.log(failureResult);
   }
 
+  //Increments the page counter and retrieves the next group of people
   nextPage() {
-    this._currentPage += 1;
-    this.getPeopleSmall();
+    if(this._currentPage < this._maxPages) {
+      this._currentPage += 1;
+      this.getPeopleSmall();
+    }
   }
 
+  //Decrements the page counter and retrieves the next group of people
   previousPage() {
     if(this._currentPage > 1){
       this._currentPage -= 1;
@@ -46,6 +64,9 @@ export class AppComponent implements OnInit{
     }
   }
 
+  //Retrieves all available People and counts the occurrence of each unique character
+  //in their email addresses
+  //Also counts instances where a person has no email address
   countEmailChars() {
     let characters = {};
 
@@ -85,9 +106,7 @@ export class AppComponent implements OnInit{
 
     },
     failureResult => {
-      this.onFailure(failureResult);
+      this.onRequestFailure(failureResult);
     });
-
-    
   }
 }

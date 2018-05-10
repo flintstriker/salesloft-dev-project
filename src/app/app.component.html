@@ -5,16 +5,22 @@
     </div>
     <div class="card-block person-list">
       <ul class="person-list list-group bordered scrolling">
-          <li class="list-group-item" *ngFor="let person of _peopleSmall">
-            <h5>{{person.display_name}}</h5>
-            {{person.email_address}}<br/>
-            {{person.title}}
-          </li>  
-        </ul>
+        <li class="list-group-item" *ngFor="let person of _peopleSmall">
+          <h5>{{person.display_name}}</h5>
+          {{person.email_address}}<br/>
+          {{person.title}}
+        </li>  
+      </ul>
     </div>
     <div class="card-footer" sstyle="width: 400px">
-        <button type="button" class="btn btn-primary" (click)="previousPage()" *ngIf="_currentPage > 1">Previous Page</button>
-        <button type="button" class="btn btn-primary next-button" (click)="nextPage()">Next Page</button>
+        <div class="row">
+            <div class="ml-auto mr-auto">Page {{_currentPage}} out of {{_maxPages}}</div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary page-button" (click)="previousPage()" *ngIf="_currentPage > 1">Previous Page</button>        
+            <button type="button" class="btn btn-primary page-button ml-auto" (click)="nextPage()" *ngIf="_currentPage != _maxPages">Next Page</button>
+        </div>
+        
     </div>
   </div>
   <div class="card" style="width: 400px; max-width: 400px;">
@@ -24,10 +30,19 @@
     </div>
       <div class="card-block email-count">      
         <ul class="character-list list-group bordered scrolling">
-            <li class="list-group-item" *ngFor="let row of _characterDict">
-              {{row[0]}} - {{row[1]}}
-            </li>  
-          </ul>
+          <li class="list-group-item" *ngFor="let row of _characterDict">
+            {{row[0]}} - {{row[1]}}
+          </li>  
+        </ul>
+      </div>
+  </div>
+  <div class="card" style="width: 400px; max-width: 400px;">
+    <div class="card-header row">
+      <h3 class="col-6">Duplicates</h3>
+      <button type="button" class="col-6 btn btn-primary" (click)="findDuplicates()">Find Duplicates</button>
+    </div>
+      <div class="card-block email-count">      
+        To be continued... this is a tough one.
       </div>
   </div>
 </div>
